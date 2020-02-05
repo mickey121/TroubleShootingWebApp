@@ -2,7 +2,7 @@ package troubleshooting.service;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import com.vaadin.flow.spring.annotation.SpringComponent;
-import troubleshooting.dto.QStep;
+import troubleshooting.dao.QStep;
 import troubleshooting.dao.Step;
 import org.springframework.stereotype.Repository;
 
