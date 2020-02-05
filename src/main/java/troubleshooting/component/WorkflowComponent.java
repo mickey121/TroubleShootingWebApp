@@ -22,6 +22,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.HasComponents;
 
 import com.vaadin.flow.component.grid.Grid;
+import lombok.Data;
 import troubleshooting.dao.Step;
 
 import java.util.ArrayList;
@@ -54,20 +55,20 @@ public class WorkflowComponent extends Composite<Div> implements HasComponents {
 
 //        grid.setColumns("name", "firstName");
 
-//        grid.setHeight("300px");
-//        grid.setColumns("id", "firstName", "lastName");
-//        grid.getColumnByKey("id").setWidth("50px").setFlexGrow(0);
-//        add(grid);
-
+        grid.setHeight("300px");
+        grid.setWidth("1000px");
+        grid.setColumns("key", "elem1", "elem2", "elem3", "elem4");
+        hbox.add(grid);
         add(grid);
     }
 
+    @Data
     public class Row {
         public String key;
-        String elem1;
-        String elem2;
-        String elem3;
-        String elem4;
+        public String elem1;
+        public String elem2;
+        public String elem3;
+        public String elem4;
 
         public Row(String arg) {
             key = arg;
