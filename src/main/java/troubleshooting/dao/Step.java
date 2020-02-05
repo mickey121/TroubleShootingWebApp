@@ -17,9 +17,6 @@ public class Step {
     @Column
     private String stepName;
 
-    @Column
-    private String question;
-
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "step_to_option",
             joinColumns = @JoinColumn(name = "step_id"),
@@ -27,8 +24,8 @@ public class Step {
     )
     private List<Option> options;
 
-    @Column
-    private boolean isFinal;
+    @ManyToMany(mappedBy = "steps")
+    private List<Workflow> workflows;
 
     public Step() {
         this.options = new LinkedList<>();

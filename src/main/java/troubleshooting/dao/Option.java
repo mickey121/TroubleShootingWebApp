@@ -20,6 +20,10 @@ public class Option {
     @ManyToMany(mappedBy = "options")
     private List<Step> steps;
 
+    private Step nextStep;
+
+    private boolean isFinal;
+
     public Option() {
         steps = new LinkedList<>();
     }

@@ -32,4 +32,16 @@
         </createTable>
         <addPrimaryKey tableName="options" columnNames="id" />
     </changeSet>
+    <changeSet id="3"  author="Sirisha">
+        <createTable tableName="workflows">
+            <column name="id" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(256)"/>
+            <column name="workflow_id" type="VARCHAR(128)"/>
+            <column name="created_time" type="BIGINT(19)"/>
+            <column name="last_updated_time" type="BIGINT(19)"/>
+        </createTable>
+        <addPrimaryKey tableName="workflows" columnNames="id" />
+    </changeSet>
 </databaseChangeLog>
