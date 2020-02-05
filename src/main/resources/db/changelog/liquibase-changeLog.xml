@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1"  author="Minqi">
+        <createTable tableName="steps">
+            <column name="id" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stepName" type="VARCHAR(128)"/>
+            <column name="question" type="VARCHAR(128)"/>
+            <column name="is_active" type="CHAR(1)"/>
+            <column name="created_time" type="BIGINT(19)"/>
+            <column name="last_updated_time" type="BIGINT(19)"/>
+        </createTable>
+        <addPrimaryKey tableName="steps" columnNames="id" />
+    </changeSet>
+    <changeSet id="2"  author="Minqi">
+        <createTable tableName="options">
+            <column name="id" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(256)"/>
+            <column name="step_id" type="VARCHAR(128)"/>
+            <column name="created_time" type="BIGINT(19)"/>
+            <column name="last_updated_time" type="BIGINT(19)"/>
+        </createTable>
+        <addPrimaryKey tableName="options" columnNames="id" />
+    </changeSet>
+</databaseChangeLog>
