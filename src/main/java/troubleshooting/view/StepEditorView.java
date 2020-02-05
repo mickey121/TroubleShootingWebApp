@@ -1,4 +1,4 @@
-package hello.view;
+package troubleshooting.view;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -11,9 +11,9 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
-import hello.component.StepComponent;
-import hello.component.TabComponent;
-import hello.repo.StepRepository;
+import troubleshooting.component.StepComponent;
+import troubleshooting.component.TabComponent;
+import troubleshooting.repo.StepRepository;
 import ma.glasnost.orika.MapperFactory;
 
 

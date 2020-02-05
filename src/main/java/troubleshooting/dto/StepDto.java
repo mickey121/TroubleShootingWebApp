@@ -1,4 +1,4 @@
-package hello.dto;
+package troubleshooting.dto;
 
 import lombok.Data;
 

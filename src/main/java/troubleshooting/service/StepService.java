@@ -1,9 +1,9 @@
-package hello.service;
+package troubleshooting.service;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import com.vaadin.flow.spring.annotation.SpringComponent;
-import hello.dto.QStep;
-import hello.dao.Step;
+import troubleshooting.dto.QStep;
+import troubleshooting.dao.Step;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

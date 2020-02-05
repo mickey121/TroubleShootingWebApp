@@ -1,4 +1,4 @@
-package hello.component;
+package troubleshooting.component;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.Tag;
@@ -9,7 +9,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import hello.dao.Step;
+import troubleshooting.dao.Step;
 
 
 @Tag("div")

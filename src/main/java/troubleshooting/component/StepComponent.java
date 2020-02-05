@@ -1,4 +1,4 @@
-package hello.component;
+package troubleshooting.component;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasComponents;
@@ -17,11 +17,11 @@ import com.vaadin.flow.data.binder.BindingValidationStatus;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import hello.MainView;
-import hello.dao.Step;
-import hello.dto.OptionDto;
-import hello.dto.StepDto;
-import hello.repo.StepRepository;
+import troubleshooting.MainView;
+import troubleshooting.dao.Step;
+import troubleshooting.dto.OptionDto;
+import troubleshooting.dto.StepDto;
+import troubleshooting.repo.StepRepository;
 
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MapperFactory;

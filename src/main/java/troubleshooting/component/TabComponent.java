@@ -1,4 +1,4 @@
-package hello.component;
+package troubleshooting.component;
 
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.tabs.Tab;

@@ -1,9 +1,9 @@
-package hello.config;
+package troubleshooting.config;
 
-import hello.dao.Option;
-import hello.dao.Step;
-import hello.dto.OptionDto;
-import hello.dto.StepDto;
+import troubleshooting.dao.Option;
+import troubleshooting.dao.Step;
+import troubleshooting.dto.OptionDto;
+import troubleshooting.dto.StepDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
