@@ -20,7 +20,7 @@ public class Option {
     @ManyToMany(mappedBy = "options")
     private List<Step> steps;
 
-    private Step nextStep;
+    private String nextStep;
 
     private boolean isFinal;
 

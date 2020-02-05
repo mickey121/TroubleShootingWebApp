@@ -1,4 +1,4 @@
-package troubleshooting.component;
+/***package troubleshooting.component;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasComponents;
@@ -179,4 +179,4 @@ public class WorkflowComponent2 extends Composite<Div> implements HasComponents 
             workflow.addStep(o);
         });
     }
-}
+} ***/
