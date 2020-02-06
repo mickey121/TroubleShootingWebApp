@@ -96,6 +96,14 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-grid-pro-flow</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-crud-flow</artifactId>
+        </dependency>
         <!-- end::starter[] -->
 
         <dependency>

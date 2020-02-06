@@ -30,6 +30,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.binder.BindingValidationStatus;
@@ -77,18 +78,19 @@ public class WorkflowComponent extends Composite<Div> implements HasComponents {
     private List<TextField> components;
 
 
+
     // private List<TextField> components;
     BoundMapperFacade<Workflow,WorkflowDto> mapper;
 
     //the original save button should make new row pop up in grid
-//maybe change from grid to treegrid
+    //maybe change from grid to treegrid
 
     public WorkflowComponent() {
         VerticalLayout vbox = new VerticalLayout();
         HorizontalLayout hbox = new HorizontalLayout();
 
         //grid holds workflowDto,
-        Grid<WorkflowDto> workflowDtoGrid = new Grid<>(WorkflowDto.class);
+        TreeGrid<WorkflowDto> workflowDtoGrid = new TreeGrid<>(WorkflowDto.class);
         List<WorkflowDto> WorkflowDtoList = new ArrayList<>();
         WorkflowDtoList.add(new WorkflowDto("workflowDto1"));
         WorkflowDtoList.add(new WorkflowDto("workflowDto2"));

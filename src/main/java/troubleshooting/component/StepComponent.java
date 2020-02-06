@@ -85,6 +85,14 @@ public class StepComponent extends Composite<Div> implements HasComponents {
         addListener();
     }
 
+    public FormLayout getFormLayout() {
+        return stepFormLayout;
+    }
+
+    public Binder<StepDto> getBinder() {
+        return binder;
+    }
+
     private void addForm() {
         stepFormLayout.setWidth("1000px");
         stepFormLayout.getStyle().set("border", "2px solid #9E9E9E");
@@ -93,7 +101,6 @@ public class StepComponent extends Composite<Div> implements HasComponents {
         stepFormLayout.add(infoLabel);
         stepFormLayout.add(stepName, 1);
         stepFormLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("1000px", 1, FormLayout.ResponsiveStep.LabelsPosition.ASIDE));
-
 
         // Button bar
         HorizontalLayout actions = new HorizontalLayout();
