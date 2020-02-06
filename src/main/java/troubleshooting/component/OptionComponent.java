@@ -33,7 +33,7 @@ public class OptionComponent extends Composite<Div> {
 
         binder.forField(option)
                 .withValidator(new StringLengthValidator("Option can not be empty", 1, null))
-                .bind(Step::getDefaultOption, null);
+                .bind(null, null);
 
         layout.add(option);
 

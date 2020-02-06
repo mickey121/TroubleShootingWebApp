@@ -40,10 +40,6 @@ public class Step {
         options.add(option);
     }
 
-    public String getDefaultOption() {
-        return "";
-    }
-
     public void removeOption(String option) {
         options.remove(option);
     }

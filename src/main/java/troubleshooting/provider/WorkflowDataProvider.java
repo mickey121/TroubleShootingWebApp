@@ -30,8 +30,6 @@ public class WorkflowDataProvider extends AbstractBackEndDataProvider<Workflow, 
         List<Workflow> workflows = new LinkedList<>();
         workflowRepository.findAll().forEach(workflows::add);
 
-//        List<Step> steps = stepRepository.findByWorkflowId(id);
-
         Stream<Workflow> stream;
 
         if (query.getFilter().isPresent()) {

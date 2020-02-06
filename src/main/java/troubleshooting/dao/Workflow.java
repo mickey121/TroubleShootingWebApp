@@ -37,10 +37,6 @@ public class Workflow {
         steps.add(step);
     }
 
-    public String getDefaultOption() {
-        return "";
-    }
-
     public void removeStep(String step) {
         steps.remove(step);
     }
