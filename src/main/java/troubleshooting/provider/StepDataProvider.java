@@ -1,10 +1,11 @@
 package troubleshooting.provider;
-
 import com.vaadin.flow.component.crud.CrudFilter;
 import com.vaadin.flow.data.provider.AbstractBackEndDataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.provider.SortDirection;
+import troubleshooting.dao.Step;
 import troubleshooting.dao.Workflow;
+import troubleshooting.repo.StepRepository;
 import troubleshooting.repo.WorkflowRepository;
 
 import java.lang.reflect.Field;
@@ -16,36 +17,35 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class WorkflowDataProvider extends AbstractBackEndDataProvider<Workflow, CrudFilter> {
-    private WorkflowRepository workflowRepository;
+public class StepDataProvider extends AbstractBackEndDataProvider<Step, CrudFilter> {
+    private StepRepository stepRepository;
     private Consumer<Long> sizeChangeListener;
-    public WorkflowDataProvider(WorkflowRepository workflowRepository) {
-        this.workflowRepository = workflowRepository;
+    public StepDataProvider(StepRepository stepRepository) {
+        this.stepRepository = stepRepository;
     }
 
     @Override
-    protected Stream<Workflow> fetchFromBackEnd(Query<Workflow, CrudFilter> query) {
+    protected Stream<Step> fetchFromBackEnd(Query<Step, CrudFilter> query) {
         int offset = query.getOffset();
         int limit = query.getLimit();
-        List<Workflow> workflows = new LinkedList<>();
-        workflowRepository.findAll().forEach(workflows::add);
+        List<Step> steps = new LinkedList<>();
+        stepRepository.findAll().forEach(steps::add);
+//        stepRepository.findByWorkflowId();
 
-//        List<Step> steps = stepRepository.findByWorkflowId(id);
-
-        Stream<Workflow> stream;
+        Stream<Step> stream;
 
         if (query.getFilter().isPresent()) {
-            stream = workflows.stream()
+            stream = steps.stream()
                     .filter(predicate(query.getFilter().get()))
                     .sorted(comparator(query.getFilter().get()));
         } else {
-            stream = workflows.stream();
+            stream = steps.stream();
         }
         return stream.skip(offset).limit(limit);
     }
 
     @Override
-    protected int sizeInBackEnd(Query<Workflow, CrudFilter> query) {
+    protected int sizeInBackEnd(Query<Step, CrudFilter> query) {
         long count = fetchFromBackEnd(query).count();
 
         if (sizeChangeListener != null) {
@@ -55,14 +55,14 @@ public class WorkflowDataProvider extends AbstractBackEndDataProvider<Workflow, 
         return (int) count;
     }
 
-    private static Comparator<Workflow> comparator(CrudFilter filter) {
+    private static Comparator<Step> comparator(CrudFilter filter) {
         // For RDBMS just generate an ORDER BY clause
         return filter.getSortOrders().entrySet().stream()
                 .map(sortClause -> {
                     try {
-                        Comparator<Workflow> comparator
-                                = Comparator.comparing(workflow ->
-                                (Comparable) valueOf(sortClause.getKey(), workflow));
+                        Comparator<Step> comparator
+                                = Comparator.comparing(step ->
+                                (Comparable) valueOf(sortClause.getKey(), step));
 
                         if (sortClause.getValue() == SortDirection.DESCENDING) {
                             comparator = comparator.reversed();
@@ -70,7 +70,7 @@ public class WorkflowDataProvider extends AbstractBackEndDataProvider<Workflow, 
 
                         return comparator;
                     } catch (Exception ex) {
-                        return (Comparator<Workflow>) (o1, o2) -> 0;
+                        return (Comparator<Step>) (o1, o2) -> 0;
                     }
                 })
                 .reduce(Comparator::thenComparing)
@@ -81,24 +81,24 @@ public class WorkflowDataProvider extends AbstractBackEndDataProvider<Workflow, 
         sizeChangeListener = listener;
     }
 
-    public void persist(Workflow workflow) {
+    public void persist(Step step) {
 
-        workflowRepository.save(workflow);
+        stepRepository.save(step);
     }
 
-    public Optional<Workflow> find(Long id) {
-        return workflowRepository.findById(id);
+    public Optional<Step> find(Long id) {
+        return stepRepository.findById(id);
     }
 
-    public void delete(Workflow workflow) {
-        workflowRepository.delete(workflow);
+    public void delete(Step step) {
+        stepRepository.delete(step);
     }
-    private static Predicate<Workflow> predicate(CrudFilter filter) {
+    private static Predicate<Step> predicate(CrudFilter filter) {
         // For RDBMS just generate a WHERE clause
         return filter.getConstraints().entrySet().stream()
-                .map(constraint -> (Predicate<Workflow>) workflow -> {
+                .map(constraint -> (Predicate<Step>) step -> {
                     try {
-                        Object value = valueOf(constraint.getKey(), workflow);
+                        Object value = valueOf(constraint.getKey(), step);
                         return value != null && value.toString().toLowerCase()
                                 .contains(constraint.getValue().toLowerCase());
                     } catch (Exception e) {
@@ -110,11 +110,11 @@ public class WorkflowDataProvider extends AbstractBackEndDataProvider<Workflow, 
                 .orElse(e -> true);
     }
 
-    private static Object valueOf(String fieldName, Workflow workflow) {
+    private static Object valueOf(String fieldName, Step step) {
         try {
-            Field field = Workflow.class.getDeclaredField(fieldName);
+            Field field = Step.class.getDeclaredField(fieldName);
             field.setAccessible(true);
-            return field.get(workflow);
+            return field.get(step);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

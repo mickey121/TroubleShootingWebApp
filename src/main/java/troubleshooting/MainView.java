@@ -1,6 +1,7 @@
 package troubleshooting;
 
 import com.vaadin.flow.component.accordion.Accordion;
+import com.vaadin.flow.component.crud.Crud;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
@@ -12,7 +13,8 @@ import troubleshooting.component.StepComponent;
 import troubleshooting.component.TabComponent;
 import troubleshooting.component.WorkflowComponent;
 import troubleshooting.layout.AccordionLayout;
-import troubleshooting.layout.CrudLayout;
+import troubleshooting.layout.CrudStepLayout;
+import troubleshooting.layout.CrudWorkflowLayout;
 import troubleshooting.repo.StepRepository;
 import ma.glasnost.orika.MapperFactory;
 import troubleshooting.repo.WorkflowRepository;
@@ -36,15 +38,21 @@ public class MainView extends VerticalLayout implements RouterLayout {
 		this.accordion = new Accordion();
 		StepComponent question = new StepComponent(stepRepository, mapperFactory);
 		TabComponent tabComponent = new TabComponent();
-		CrudLayout crudLayout = new CrudLayout(workflowRepository, stepRepository, mapperFactory);
+		CrudWorkflowLayout crudWorkflowLayout = new CrudWorkflowLayout(workflowRepository, mapperFactory);
+		CrudStepLayout crudStepLayout = new CrudStepLayout(stepRepository, mapperFactory);
 		WorkflowComponent workflowComponent = new WorkflowComponent();
 
 		accordion.add("wf1", new AccordionLayout(2));
 		accordion.add("wf2", new AccordionLayout(2));
-		addAndExpand(tabComponent, question, crudLayout);
+		addAndExpand(tabComponent, question, crudWorkflowLayout, crudStepLayout);
+
+//		crudStepLayout.
+
+//		crud.getGrid().addItemDoubleClickListener(
+//				e -> crud.edit(e.getItem(), Crud.EditMode.EXISTING_ITEM));
 
 		//addAndExpand(tabComponent, question, workflowComponent);
-
+//		add(accordion);
 
 		// build layout
 		addListener();

@@ -15,11 +15,11 @@ import troubleshooting.provider.WorkflowDataProvider;
 import troubleshooting.repo.StepRepository;
 import troubleshooting.repo.WorkflowRepository;
 
-public class CrudLayout extends VerticalLayout {
+public class CrudWorkflowLayout extends VerticalLayout {
     private com.vaadin.flow.data.binder.Binder<Workflow> binder;
 
-    public CrudLayout(WorkflowRepository workflowRepository,
-                      StepRepository stepRepository, MapperFactory mapperFactory) {
+    public CrudWorkflowLayout(WorkflowRepository workflowRepository,
+                              MapperFactory mapperFactory) {
         Crud<Workflow> crud = new Crud<>(Workflow.class, createEntityEditor());
         Crud.removeEditColumn(crud.getGrid());
 
@@ -42,7 +42,6 @@ public class CrudLayout extends VerticalLayout {
         FormLayout form = new FormLayout(workflowName);
         binder = new Binder<>(Workflow.class);
         binder.bind(workflowName, Workflow::getWorkflowName, Workflow::setWorkflowName);
-
 
         return new BinderCrudEditor<>(binder, form);
     }
