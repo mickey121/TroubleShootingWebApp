@@ -13,7 +13,6 @@ import troubleshooting.component.TabComponent;
 import troubleshooting.component.WorkflowComponent;
 import troubleshooting.layout.AccordionLayout;
 import troubleshooting.layout.CrudLayout;
-import troubleshooting.layout.GridLayout;
 import troubleshooting.repo.StepRepository;
 import ma.glasnost.orika.MapperFactory;
 import troubleshooting.repo.WorkflowRepository;

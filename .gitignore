@@ -1,5 +1,4 @@
 build/
 target/
-node_modules/
 .idea
 .mvn/
