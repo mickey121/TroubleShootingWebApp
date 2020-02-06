@@ -53,9 +53,14 @@ public class StepComponent extends Composite<Div> implements HasComponents {
     private Label infoLabel;
     private Binder<StepDto> binder;
     private StepDto currStep;
+    public String name;
 
     private List<TextField> components;
     BoundMapperFacade<Step,StepDto> mapper;
+
+    public StepComponent(String arg) {
+        this.name = arg;
+    }
 
     public StepComponent(StepDto stepDto, MapperFactory mapperFactory) {
         binder = new Binder<>();

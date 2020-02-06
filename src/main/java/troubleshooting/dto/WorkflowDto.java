@@ -1,6 +1,7 @@
 package troubleshooting.dto;
 
 import lombok.Data;
+import org.hibernate.jdbc.Work;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,10 @@ public class WorkflowDto {
     private String question;
     private List<StepDto> steps = new LinkedList<>();
     private boolean isFinal;
+
+    public WorkflowDto(String arg) {
+        workflowName = arg;
+    }
 
     public void addStep(StepDto step) {
         steps.add(step);
