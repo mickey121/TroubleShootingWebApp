@@ -81,7 +81,7 @@ public class WorkflowComponent extends Composite<Div> implements HasComponents {
     BoundMapperFacade<Workflow,WorkflowDto> mapper;
 
     //the original save button should make new row pop up in grid
-//maybe change from grid to treegrid
+    //maybe change from grid to treegrid
 
     public WorkflowComponent() {
         VerticalLayout vbox = new VerticalLayout();

@@ -6,8 +6,10 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -21,7 +23,7 @@ import ma.glasnost.orika.MapperFactory;
 @Theme(value = Lumo.class)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/menu-buttons.css", themeFor = "vaadin-button")
-public class StepEditorView extends Div {
+public class StepEditorView extends VerticalLayout implements RouterLayout {
     private StepRepository stepRepository;
     private MapperFactory mapperFactory;
 
@@ -29,7 +31,7 @@ public class StepEditorView extends Div {
 
     private Button addNewBtn;
 
-    public void StepEditorView(StepRepository stepRepository, MapperFactory mapperFactory) {
+    public StepEditorView(StepRepository stepRepository, MapperFactory mapperFactory) {
         this.stepRepository = stepRepository;
         this.mapperFactory = mapperFactory;
         this.filter = new TextField();
@@ -38,14 +40,12 @@ public class StepEditorView extends Div {
     }
 
     private void addForm() {
-        setVisible(true);
         StepComponent question = new StepComponent(stepRepository, mapperFactory);
         TabComponent tabComponent = new TabComponent();
         add(tabComponent);
         // build layout
         HorizontalLayout actions = new HorizontalLayout(filter, addNewBtn);
         add(actions, question);
-
     }
 
     private void addMenuElement(
