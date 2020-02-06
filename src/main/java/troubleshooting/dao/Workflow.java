@@ -17,7 +17,7 @@ public class Workflow {
     @Column
     private String workflowName;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "workflow_to_step",
             joinColumns = @JoinColumn(name = "workflow_id"),
             inverseJoinColumns = @JoinColumn(name = "step_id")
