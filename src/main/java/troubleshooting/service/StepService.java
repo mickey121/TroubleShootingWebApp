@@ -1,9 +1,9 @@
 package troubleshooting.service;
 
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.vaadin.flow.spring.annotation.SpringComponent;
+import org.springframework.transaction.annotation.Transactional;
 import troubleshooting.dao.QStep;
 import troubleshooting.dao.QWorkflow;
 import troubleshooting.dao.Step;
@@ -29,6 +29,7 @@ public class StepService {
         return query.from(step).fetch();
     }
 
+    @Transactional
     public List<Step> findByWorkflowId(Long id) {
         queryFactory = new JPAQueryFactory(entityManager);
         query = new JPAQuery<>(entityManager);

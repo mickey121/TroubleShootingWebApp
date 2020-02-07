@@ -16,33 +16,35 @@ import troubleshooting.provider.WorkflowDataProvider;
 import troubleshooting.repo.StepRepository;
 import troubleshooting.dao.Step;
 import troubleshooting.repo.WorkflowRepository;
+import troubleshooting.service.StepService;
 
 public class CrudStepLayout extends VerticalLayout {
     private com.vaadin.flow.data.binder.Binder<Step> binder;
+    private Crud<Step> crud;
+    private StepDataProvider dataProvider;
 
-    public CrudStepLayout(StepRepository stepRepository, MapperFactory mapperFactory) {
-        Crud<Step> crud = new Crud<>(Step.class, createEntityEditor());
+    public CrudStepLayout(StepRepository stepRepository, StepService stepService, MapperFactory mapperFactory) {
+        crud = new Crud<>(Step.class, createEntityEditor());
         Crud.removeEditColumn(crud.getGrid());
 
         crud.getGrid().addItemDoubleClickListener(
                 e -> crud.edit(e.getItem(), Crud.EditMode.EXISTING_ITEM));
 
-        StepDataProvider dataProvider = new StepDataProvider(stepRepository);
+        dataProvider = new StepDataProvider(stepRepository);
         crud.setDataProvider(dataProvider);
         crud.addSaveListener(e -> dataProvider.persist(e.getItem()));
         crud.addDeleteListener(e -> dataProvider.delete(e.getItem()));
 
-        crud.getDataProvider().refreshAll();
-
         crud.getGrid().removeColumnByKey("id");
         crud.getGrid().removeColumnByKey("workflows");
-
 
         crud.addThemeVariants(CrudVariant.NO_BORDER);
         add(crud);
     }
 
-
+    public void reloadSteps(Long workflowId) {
+        dataProvider.setWorkflowIdAndRefresh(workflowId);
+    }
 
     private CrudEditor<Step> createEntityEditor() {
         TextField stepName = new TextField("Step name");

@@ -20,8 +20,14 @@ import java.util.stream.Stream;
 public class StepDataProvider extends AbstractBackEndDataProvider<Step, CrudFilter> {
     private StepRepository stepRepository;
     private Consumer<Long> sizeChangeListener;
+    private Long workflowId;
     public StepDataProvider(StepRepository stepRepository) {
         this.stepRepository = stepRepository;
+    }
+
+    public void setWorkflowIdAndRefresh(Long id) {
+        this.workflowId = id;
+        refreshAll();
     }
 
     @Override
@@ -30,7 +36,6 @@ public class StepDataProvider extends AbstractBackEndDataProvider<Step, CrudFilt
         int limit = query.getLimit();
         List<Step> steps = new LinkedList<>();
         stepRepository.findAll().forEach(steps::add);
-//        stepRepository.findByWorkflowId();
 
         Stream<Step> stream;
 
@@ -82,7 +87,6 @@ public class StepDataProvider extends AbstractBackEndDataProvider<Step, CrudFilt
     }
 
     public void persist(Step step) {
-
         stepRepository.save(step);
     }
 

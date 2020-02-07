@@ -80,7 +80,6 @@ public class WorkflowDataProvider extends AbstractBackEndDataProvider<Workflow, 
     }
 
     public void persist(Workflow workflow) {
-
         workflowRepository.save(workflow);
     }
 

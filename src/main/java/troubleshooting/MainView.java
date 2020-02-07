@@ -41,12 +41,13 @@ public class MainView extends VerticalLayout implements RouterLayout {
 		StepComponent question = new StepComponent(stepRepository, mapperFactory);
 		TabComponent tabComponent = new TabComponent();
 		CrudWorkflowLayout crudWorkflowLayout = new CrudWorkflowLayout(workflowRepository, stepRepository, mapperFactory, stepService);
-		CrudStepLayout crudStepLayout = new CrudStepLayout(stepRepository, mapperFactory);
+		CrudStepLayout crudStepLayout = new CrudStepLayout(stepRepository, stepService, mapperFactory);
 		WorkflowComponent workflowComponent = new WorkflowComponent();
+		crudWorkflowLayout.bindChildComponent(crudStepLayout);
 
 		accordion.add("wf1", new TextField());
 		accordion.add("wf2", new AccordionLayout(2));
-		addAndExpand(tabComponent, question, crudWorkflowLayout, crudStepLayout);
+		addAndExpand(crudWorkflowLayout, crudStepLayout);
 
 //		crudStepLayout.
 
