@@ -10,6 +10,7 @@ import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import troubleshooting.component.StepComponent;
+import troubleshooting.component.StepDisplayComponent;
 import troubleshooting.component.TabComponent;
 import troubleshooting.component.WorkflowComponent;
 import troubleshooting.layout.AccordionLayout;
@@ -44,10 +45,11 @@ public class MainView extends VerticalLayout implements RouterLayout {
 		CrudStepLayout crudStepLayout = new CrudStepLayout(stepRepository, stepService, mapperFactory);
 		WorkflowComponent workflowComponent = new WorkflowComponent();
 		crudWorkflowLayout.bindChildComponent(crudStepLayout);
+		StepDisplayComponent stepDisplay = new StepDisplayComponent(stepRepository, mapperFactory);
 
 		accordion.add("wf1", new TextField());
 		accordion.add("wf2", new AccordionLayout(2));
-		addAndExpand(crudWorkflowLayout, crudStepLayout);
+		addAndExpand(crudWorkflowLayout, question, crudStepLayout);
 
 //		crudStepLayout.
 

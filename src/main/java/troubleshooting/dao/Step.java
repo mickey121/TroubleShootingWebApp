@@ -22,7 +22,7 @@ public class Step {
             joinColumns = @JoinColumn(name = "step_id"),
             inverseJoinColumns = @JoinColumn(name = "option_id")
     )
-    private List<Option> options;
+    public List<Option> options;
 
     @ManyToMany(mappedBy = "steps")
     private List<Workflow> workflows;

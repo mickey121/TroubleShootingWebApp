@@ -1,9 +1,6 @@
 package troubleshooting.component;
 
-import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.HasComponents;
-import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -41,6 +38,7 @@ public class StepComponent extends Composite<Div> implements HasComponents {
 
     private StepRepository stepRepository;
     private FormLayout stepFormLayout = new FormLayout();
+    private FormLayout stepViewLayout = new FormLayout();
     //private VerticalLayout optionFormLayout = new VerticalLayout();
     private TextField stepName;
     private int index = 1;
@@ -49,11 +47,19 @@ public class StepComponent extends Composite<Div> implements HasComponents {
     private Button reset = new Button("Reset");
     private Button add = new Button("Add");
     private Button remove = new Button("Remove");
+    private Button previous = new Button("Previous");
+    private Button next = new Button("Next");
+
     private Checkbox isFinal = new Checkbox("Do not call");
     private Label infoLabel;
     private Binder<StepDto> binder;
     private StepDto currStep;
     public String name;
+
+    TextField stepTitle;
+    TextField stepOptions;
+    int displayIndex = 0;
+    Step displayedStep;
 
     private List<TextField> components;
     BoundMapperFacade<Step,StepDto> mapper;
@@ -89,6 +95,10 @@ public class StepComponent extends Composite<Div> implements HasComponents {
         return stepFormLayout;
     }
 
+    public FormLayout getStepViewLayout() {
+        return stepViewLayout;
+    }
+
     public Binder<StepDto> getBinder() {
         return binder;
     }
@@ -110,8 +120,28 @@ public class StepComponent extends Composite<Div> implements HasComponents {
         stepName.setRequiredIndicatorVisible(true);
         stepFormLayout.add(actions, 2);
 
+        stepTitle = new TextField();
+        stepOptions = new TextField();
+        stepViewLayout.setWidth("1000px");
+        stepViewLayout.getStyle().set("border", "2px solid #9E9E9E");
+        stepViewLayout.getStyle().set("border-radius", "8px");
+        stepViewLayout.getStyle().set("padding", "1%");
+        stepViewLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("1000px", 1, FormLayout.ResponsiveStep.LabelsPosition.ASIDE));
+
+        stepViewLayout.addComponentAsFirst(stepTitle);
+        stepViewLayout.addComponentAsFirst(stepOptions);
+        stepTitle.setValue("initial step name");
+        stepOptions.setValue("initial step option");
+        stepViewLayout.addComponentAsFirst(new Label("Options"));
+
+        // Button bar
+        HorizontalLayout stepViewActions = new HorizontalLayout();
+        stepViewActions.add(previous, next);
+        stepViewLayout.add(stepViewActions, 2);
+
         bindForm();
 
+        add(stepViewLayout);
         add(stepFormLayout);
     }
 
@@ -143,6 +173,23 @@ public class StepComponent extends Composite<Div> implements HasComponents {
 
     private void addListener() {
         // Click listeners for the buttons
+        previous.addClickListener(event -> {
+            if (displayIndex >= 0) {
+                stepOptions.setValue(displayedStep.options.get(displayIndex).getText());
+            }
+            if (displayIndex > 0) {
+                displayIndex--;
+            }
+        });
+        next.addClickListener(event -> {
+            if (displayIndex < displayedStep.options.size()) {
+                stepOptions.setValue(displayedStep.options.get(displayIndex).getText());
+            }
+            if (displayIndex < displayedStep.options.size() - 1) {
+                displayIndex++;
+            }
+        });
+
         save.addClickListener(event -> {
                 if (binder.validate().isOk()) {
                 infoLabel.setText("Saved bean values: " + currStep);
@@ -151,6 +198,9 @@ public class StepComponent extends Composite<Div> implements HasComponents {
                 UI ui = UI.getCurrent();
                 ui.navigate(ui.getRouter().getUrl(MainView.class));
 
+                stepTitle.setValue(s.getStepName());
+                displayIndex = 0;
+                displayedStep = s;
             } else {
                 BinderValidationStatus<StepDto> validate = binder.validate();
                 String errorText = validate.getFieldValidationStatuses()
