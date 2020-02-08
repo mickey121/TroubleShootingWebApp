@@ -1,6 +1,7 @@
 package troubleshooting.dao;
 
 import lombok.Data;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -25,6 +26,7 @@ public class Step {
     private List<Option> options;
 
     @ManyToMany(mappedBy = "steps")
+    @Lazy
     private List<Workflow> workflows;
 
     public Step() {

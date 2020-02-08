@@ -1,6 +1,7 @@
 package troubleshooting.dao;
 
 import lombok.Data;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -18,6 +19,7 @@ public class Option {
     private String text;
 
     @ManyToMany(mappedBy = "options")
+    @Lazy
     private List<Step> steps;
 
     private String nextStep;

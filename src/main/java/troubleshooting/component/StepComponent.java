@@ -6,6 +6,7 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -14,6 +15,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.binder.BindingValidationStatus;
+import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -27,6 +29,7 @@ import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import troubleshooting.service.StepService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +43,7 @@ import java.util.stream.Collectors;
 public class StepComponent extends Composite<Div> implements HasComponents {
 
     private StepRepository stepRepository;
+    private StepService stepService;
     private FormLayout stepFormLayout = new FormLayout();
     //private VerticalLayout optionFormLayout = new VerticalLayout();
     private TextField stepName;
@@ -73,13 +77,14 @@ public class StepComponent extends Composite<Div> implements HasComponents {
         addListener();
     }
 
-    public StepComponent(StepRepository stepRepository, MapperFactory mapperFactory) {
+    public StepComponent(StepRepository stepRepository, MapperFactory mapperFactory, StepService stepService) {
         binder = new Binder<>();
         currStep = new StepDto();
         infoLabel = new Label();
         stepName = new TextField();
         components = new LinkedList<>();
         this.stepRepository = stepRepository;
+        this.stepService = stepService;
         this.mapper = mapperFactory.getMapperFacade(Step.class, StepDto.class);
         addForm();
         addListener();
@@ -168,11 +173,17 @@ public class StepComponent extends Composite<Div> implements HasComponents {
             isFinal.setValue(false);
         });
         add.addClickListener(event -> {
+            HorizontalLayout horizontalLayout = new HorizontalLayout();
             TextField option = new TextField(Integer.toString(index));
+            ComboBox<StepDto> dropdown = new ComboBox<>("Next Step");
+            dropdown.setItemLabelGenerator(StepDto::getStepName);
+            dropdown.setDataProvider(stepService::getAllStepsDto, stepService::count);
+
             option.setId(Integer.toString(index));
             option.setRequired(true);
             bindOption(option, index++);
-            stepFormLayout.addComponentAtIndex(index, option);
+            horizontalLayout.add(option, dropdown);
+            stepFormLayout.addComponentAtIndex(index, horizontalLayout);
             components.add(option);
         });
         remove.addClickListener(event -> {

@@ -9,6 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import org.springframework.beans.factory.annotation.Autowired;
 import troubleshooting.component.StepComponent;
 import troubleshooting.component.TabComponent;
 import troubleshooting.component.WorkflowComponent;
@@ -30,15 +31,12 @@ import troubleshooting.service.StepService;
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/menu-buttons.css", themeFor = "vaadin-button")
 public class MainView extends VerticalLayout implements RouterLayout {
-	private StepRepository stepRepository;
-	private MapperFactory mapperFactory;
 	private Accordion accordion;
 
-	public MainView(StepRepository stepRepository, WorkflowRepository workflowRepository,
+	public MainView(StepRepository stepRepository,  WorkflowRepository workflowRepository,
 					StepService stepService, MapperFactory mapperFactory) {
-		this.stepRepository = stepRepository;
 		this.accordion = new Accordion();
-		StepComponent question = new StepComponent(stepRepository, mapperFactory);
+		StepComponent question = new StepComponent(stepRepository, mapperFactory, stepService);
 		TabComponent tabComponent = new TabComponent();
 		CrudWorkflowLayout crudWorkflowLayout = new CrudWorkflowLayout(workflowRepository, stepRepository, mapperFactory, stepService);
 		CrudStepLayout crudStepLayout = new CrudStepLayout(stepRepository, stepService, mapperFactory);
@@ -47,7 +45,7 @@ public class MainView extends VerticalLayout implements RouterLayout {
 
 		accordion.add("wf1", new TextField());
 		accordion.add("wf2", new AccordionLayout(2));
-		addAndExpand(crudWorkflowLayout, crudStepLayout);
+		addAndExpand(crudWorkflowLayout, crudStepLayout, question);
 
 //		crudStepLayout.
 

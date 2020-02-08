@@ -3,7 +3,6 @@ package troubleshooting.view;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -40,7 +39,7 @@ public class StepEditorView extends VerticalLayout implements RouterLayout {
     }
 
     private void addForm() {
-        StepComponent question = new StepComponent(stepRepository, mapperFactory);
+        StepComponent question = new StepComponent(stepRepository, mapperFactory, null);
         TabComponent tabComponent = new TabComponent();
         add(tabComponent);
         // build layout

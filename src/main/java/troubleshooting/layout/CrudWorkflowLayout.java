@@ -42,7 +42,6 @@ public class CrudWorkflowLayout extends VerticalLayout {
         crud.addDeleteListener(e -> dataProvider.delete(e.getItem()));
 
         crud.getDataProvider().refreshAll();
-
         crud.getGrid().removeColumnByKey("id");
         crud.getGrid().removeColumnByKey("steps");
         crud.addThemeVariants(CrudVariant.NO_BORDER);
